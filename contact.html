@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Submit a Deal | [Brand]</title>
+<meta name="description" content="Send us your deal or brief.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="index.html" aria-label="[Brand] home"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span><span class="brand-name">[Brand]</span></a>
+    <nav class="nav" aria-label="Main"><a href="real-estate.html">Real estate</a><a href="trade-finance.html">Trade finance</a><a href="consulting.html">Consulting</a><a href="about.html">About</a><a class="nav-cta" href="contact.html" aria-current="page">Submit a deal</a></nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-head"><div class="wrap narrow">
+  <p class="eyebrow">Submit a deal</p>
+  <h1>Tell us what you have, or what you are looking for</h1>
+  <p class="lede">Choose the form that fits. We reply within two working days. We ask for documents only after there is a fit and an NDA is in place.</p>
+</div></section>
+<section class="section">
+  <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Enquiry type">
+      <button role="tab" id="tab-trader" aria-controls="form-trader" aria-selected="true">Trade finance</button>
+      <button role="tab" id="tab-investor" aria-controls="form-investor" aria-selected="false">Investor or buyer</button>
+      <button role="tab" id="tab-owner" aria-controls="form-owner" aria-selected="false">Owner or developer</button>
+    </div>
+    <div class="forms"><form class="enquiry" id="form-trader" name="trader" method="POST" data-netlify="true" netlify-honeypot="company_url">
+  <input type="hidden" name="form-name" value="trader">
+  <p class="hp"><label>Leave empty <input name="company_url"></label></p>
+  <h3>Trade finance</h3><p class="muted">For traders looking for financing from partner banks.</p>
+  <div class="fields"><label for="trader-name">Full name<input id="trader-name" name="name" type="text" required></label><label for="trader-email">Email<input id="trader-email" name="email" type="email" required></label><label for="trader-company">Company<input id="trader-company" name="company" type="text"></label><label for="trader-country">Country<input id="trader-country" name="country" type="text"></label><label for="trader-commodity">Commodity traded<input id="trader-commodity" name="commodity" type="text"></label><label for="trader-liquidity">Is it exchange-traded with a public price?<select id="trader-liquidity" name="liquidity"><option value="">Select</option><option>Yes</option><option>Partly</option><option>No, niche product</option></select></label><label for="trader-volume">Monthly volume<input id="trader-volume" name="volume" type="text"></label><label for="trader-amount">Financing needed (USD)<input id="trader-amount" name="amount" type="text"></label><label class="full" for="trader-details">Buyers, sellers and routes (XX: questions to be finalised)<textarea id="trader-details" name="details" rows="4"></textarea></label></div>
+  <label class="consent"><input type="checkbox" name="consent" required> I agree that my details are used to assess this enquiry.</label>
+  <button class="btn btn-solid" type="submit">Send enquiry</button>
+  <p class="form-note muted small" role="status"></p>
+</form><form class="enquiry" id="form-investor" name="investor" method="POST" data-netlify="true" netlify-honeypot="company_url">
+  <input type="hidden" name="form-name" value="investor">
+  <p class="hp"><label>Leave empty <input name="company_url"></label></p>
+  <h3>Investor or buyer</h3><p class="muted">For investors and buyers looking for property or co-investment.</p>
+  <div class="fields"><label for="investor-name">Full name<input id="investor-name" name="name" type="text" required></label><label for="investor-email">Email<input id="investor-email" name="email" type="email" required></label><label for="investor-company">Company<input id="investor-company" name="company" type="text"></label><label for="investor-country">Country<input id="investor-country" name="country" type="text"></label><label for="investor-market">Target market<select id="investor-market" name="market"><option value="">Select</option><option>United States</option><option>Europe</option><option>Georgia</option><option>Armenia</option><option>Uzbekistan</option><option>Open</option></select></label><label for="investor-asset">Asset type<select id="investor-asset" name="asset"><option value="">Select</option><option>Residential</option><option>Multifamily</option><option>Hospitality</option><option>Commercial</option><option>Land / development</option></select></label><label for="investor-budget">Budget (USD)<input id="investor-budget" name="budget" type="text"></label><label class="full" for="investor-details">Your brief (XX: questions to be finalised)<textarea id="investor-details" name="details" rows="4"></textarea></label></div>
+  <label class="consent"><input type="checkbox" name="consent" required> I agree that my details are used to assess this enquiry.</label>
+  <button class="btn btn-solid" type="submit">Send enquiry</button>
+  <p class="form-note muted small" role="status"></p>
+</form><form class="enquiry" id="form-owner" name="owner" method="POST" data-netlify="true" netlify-honeypot="company_url">
+  <input type="hidden" name="form-name" value="owner">
+  <p class="hp"><label>Leave empty <input name="company_url"></label></p>
+  <h3>Property owner or developer</h3><p class="muted">For owners and developers selling a property or raising capital.</p>
+  <div class="fields"><label for="owner-name">Full name<input id="owner-name" name="name" type="text" required></label><label for="owner-email">Email<input id="owner-email" name="email" type="email" required></label><label for="owner-company">Company<input id="owner-company" name="company" type="text"></label><label for="owner-country">Country<input id="owner-country" name="country" type="text"></label><label for="owner-location">Property location<input id="owner-location" name="location" type="text"></label><label for="owner-asset">Asset type<select id="owner-asset" name="asset"><option value="">Select</option><option>Residential</option><option>Multifamily</option><option>Hospitality</option><option>Commercial</option><option>Land / development</option></select></label><label for="owner-need">What you need<select id="owner-need" name="need"><option value="">Select</option><option>Buyer</option><option>Co-investor</option><option>Debt</option><option>Advice</option></select></label><label for="owner-value">Asking price or amount sought (USD)<input id="owner-value" name="value" type="text"></label><label class="full" for="owner-details">Project summary (XX: questions to be finalised)<textarea id="owner-details" name="details" rows="4"></textarea></label></div>
+  <label class="consent"><input type="checkbox" name="consent" required> I agree that my details are used to assess this enquiry.</label>
+  <button class="btn btn-solid" type="submit">Send enquiry</button>
+  <p class="form-note muted small" role="status"></p>
+</form></div>
+  </div>
+</section>
+<section class="section alt" id="contact">
+  <div class="wrap narrow">
+    <div class="section-head"><p class="eyebrow">Contact</p><h2>Prefer to write directly?</h2></div>
+    <dl class="contact-list mono">
+      <div><dt>Email</dt><dd>XX@XX.com</dd></div>
+      <div><dt>Phone</dt><dd>+1 XXX XXX XXXX</dd></div>
+      <div><dt>WhatsApp / Telegram</dt><dd>XX</dd></div>
+    </dl>
+  </div>
+</section>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tabs [role=tab]'));
+  function show(id){
+    tabs.forEach(function(t){var on=t.getAttribute('aria-controls')===id;t.setAttribute('aria-selected',on);document.getElementById(t.getAttribute('aria-controls')).hidden=!on;});
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('aria-controls'));});});
+  var h=(location.hash||'').replace('#','');
+  show(['form-trader','form-investor','form-owner'].indexOf('form-'+h)>-1?'form-'+h:'form-trader');
+  [].slice.call(document.querySelectorAll('form.enquiry')).forEach(function(f){
+    f.addEventListener('submit',function(e){
+      var note=f.querySelector('.form-note');
+      if(location.hostname.indexOf('netlify')>-1||f.dataset.live==='1')return;
+      e.preventDefault();
+      note.textContent='Test version: this form is not connected yet. Please write to XX@XX.com.';
+    });
+  });
+})();
+</script>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span><span class="brand-name">[Brand]</span></a>
+      <p>Cross-border introductions and advisory between the United States and Europe, the Caucasus and Central Asia.</p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <a href="real-estate.html">Real estate</a><a href="trade-finance.html">Trade finance</a><a href="consulting.html">Real estate consulting</a>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a href="about.html">About</a><a href="contact.html">Submit a deal</a><a href="contact.html#contact">Contact</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p class="mono">Email: XX@XX.com</p><p class="mono">Phone: +1 XXX XXX XXXX</p><p class="mono">WhatsApp: XX</p>
+    </div>
+  </div>
+  <div class="wrap legal">
+    <p>[Brand] acts as an introducer and advisor. It is not a bank, lender, broker-dealer, investment adviser or real estate brokerage, and it does not offer or sell securities. Where a transaction requires a licence, such as US real estate brokerage, we work alongside appropriately licensed partners. Nothing on this site is an offer of finance, investment or legal, tax or financial advice. Information current as of November 2026.</p>
+    <p>&copy; 2026 [Brand]. Test version, not for distribution.</p>
+  </div>
+</footer>
+</body>
+</html>
