@@ -1,4 +1,4 @@
-/* Layout: navy hero with a dotted world map, white and pale-grey bands, one warm orange accent (single light look, like the reference). */
+/* Layout: deep navy gradient hero with oversized outlined GESA letters, white and pale-grey bands, one warm orange accent (single light look). */
 :root{
   --navy:#14213D;
   --navy-deep:#0E1830;
@@ -76,23 +76,18 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .btn-ghost:hover{border-color:#fff}
 
 /* hero */
-.hero{background:var(--navy);color:#fff;padding-block:72px 0;overflow:hidden}
-.hero-copy{display:grid;gap:26px;max-width:820px}
+.hero{position:relative;background:linear-gradient(90deg,var(--navy-deep),#1F3157);color:#fff;padding-block:96px 0;overflow:hidden}
+.hero .wrap{position:relative;z-index:1}
+.hero-copy{display:grid;gap:26px;max-width:760px;padding-bottom:110px}
 .hero .lede{color:#C9D2E3}
-.map-wrap{margin-top:36px;margin-inline:-2%}
-.dotmap{width:100%;height:auto;display:block}
-.dotmap .land circle{fill:#3A4D78;opacity:.75}
-.dotmap .arc{fill:none;stroke:var(--orange);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:draw 2.4s ease-out forwards;opacity:.9}
-.dotmap .arc1{animation-delay:.3s}.dotmap .arc2{animation-delay:.6s}.dotmap .arc3{animation-delay:.9s}
-@keyframes draw{to{stroke-dashoffset:0}}
-.dotmap .city{fill:var(--orange)}
-.dotmap .halo{animation:pulse 3s ease-in-out infinite}
-@keyframes pulse{50%{opacity:.35}}
-.dotmap .lbl{fill:#fff;font:600 15px var(--display)}
+.hero-letters{position:absolute;right:-1.5%;bottom:-9%;width:min(1240px,92%);height:auto;pointer-events:none}
+.hero-letters path{fill:none;stroke:#33497A;stroke-width:1.5}
+.hero-letters{animation:rise 1.6s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 .trust{list-style:none;margin:0;padding:22px 0 30px;border-top:1px solid var(--navy-line);display:flex;gap:14px 40px;flex-wrap:wrap}
 .trust li{display:flex;align-items:center;gap:10px;font-weight:600}
 .trust li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange)}
-@media (max-width:640px){.hero{padding-top:44px}.dotmap .lbl{font-size:22px}.map-wrap{margin-inline:-20px}}
+@media (max-width:640px){.hero{padding-top:56px}.hero-copy{padding-bottom:70px}.hero-letters{width:150%;right:-30%;bottom:-4%}}
 
 /* sections */
 .section{padding-block:88px}
@@ -179,7 +174,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (max-width:480px){.stats{grid-template-columns:1fr}}
 
 /* page hero */
-.page-hero{background:var(--navy);color:#fff;padding-block:64px}
+.page-hero{background:linear-gradient(90deg,var(--navy-deep),#1F3157);color:#fff;padding-block:64px}
 .ph-grid{display:grid;gap:40px;align-items:center}
 .page-hero.has-img .ph-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
 .ph-copy{display:grid;gap:22px;max-width:760px}
