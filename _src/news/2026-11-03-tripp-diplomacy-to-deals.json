@@ -1,0 +1,33 @@
+{
+  "slug": "tripp-corridor-from-diplomacy-to-deals",
+  "date": "2026-11-03",
+  "status": "published",
+  "countries": ["United States", "Armenia", "Azerbaijan"],
+  "title": "The US moves the TRIPP corridor <b>from diplomacy to deals</b>",
+  "dek": "More than 40 companies met in New York to discuss investing in the route through southern Armenia and the wider Trans-Caspian trade route.",
+  "figs": [["USD 201m", "for a new Trans-Caspian Enterprise Fund"], ["40+", "companies at the New York investment forum"], ["43 km", "length of the Armenian section of the route"]],
+  "sections": [
+    {"h": "What happened", "p": [
+      "On 23 September 2026, on the sidelines of the UN General Assembly in New York, US officials, regional ministers and representatives of more than 40 companies discussed the next steps for TRIPP, the Trump Route for International Peace and Prosperity. The route crosses southern Armenia and is part of the peace process between Armenia and Azerbaijan.",
+      "Speakers included US Special Envoy Steve Witkoff and Senator Steve Daines, alongside the foreign ministers of Azerbaijan and Armenia and officials from Georgia and the five Central Asian countries. The forum was held at the 7th Caspian Business Forum."
+    ]},
+    {"h": "Two new vehicles", "p": [
+      "The first is a TRIPP Development Company, a US&ndash;Armenia joint venture in which Washington is expected to hold the majority stake. It would oversee the infrastructure and run competitive tenders.",
+      "The second is a Trans-Caspian Enterprise Fund, a private non-profit vehicle meant to bring private capital into connectivity projects across the South Caucasus and Central Asia. The US announced USD 201 million for it about a month before the forum."
+    ]},
+    {"h": "Timeline", "p": [
+      "Feasibility work for the railway is expected to finish in late 2026 or early 2027, after which companies could bid for contracts. Construction would take at least another 18 months, while electricity links could start operating in 2027. US officials are also looking at power transmission, energy, AI infrastructure, cybersecurity and digital connectivity along the route."
+    ]}
+  ],
+  "why": [
+    "Tenders for rail, road, energy and digital links will create work for US contractors and their partners in the region.",
+    "Witkoff cited estimates that the route could cut some trade journeys by up to three weeks, which matters for anyone moving commodities between Central Asia and Europe.",
+    "The Trans-Caspian Enterprise Fund is designed to back private projects, making it a potential co-investor for businesses along the corridor."
+  ],
+  "risk": "No construction has started yet, and the corridor is still at the planning stage.",
+  "sources": [
+    {"title": "The business of peace: US investment push takes the TRIPP corridor from diplomacy to trade", "outlet": "Euronews", "date": "25 September 2026", "url": "https://www.euronews.com/2026/09/25/the-business-of-peace-us-investment-push-takes-the-tripp-corridor-from-diplomacy-to-trade"},
+    {"title": "US Pushes To Turn Armenia-Azerbaijan Transit Deal Into Investment Opportunity", "outlet": "RFE/RL", "date": "24 September 2026", "url": "https://www.rferl.org/a/tripp-armenia-azerbaijan-us-investment-transit-corridor/33863442.html"}
+  ],
+  "linkedin_status": "not planned"
+}

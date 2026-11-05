@@ -1,0 +1,33 @@
+{
+  "slug": "azerbaijan-georgia-trade-up-42",
+  "date": "2026-11-04",
+  "status": "published",
+  "countries": ["Azerbaijan", "Georgia"],
+  "title": "Azerbaijan&ndash;Georgia trade up <b>42%</b> as the Middle Corridor fills",
+  "dek": "Azerbaijan is Georgia's largest investor with close to USD 4 billion, and the Baku-Tbilisi-Kars railway now runs at full capacity.",
+  "figs": [["+42%", "bilateral trade, January to September 2026"], ["~USD 4bn", "Azerbaijani investment in Georgia"], ["5m t", "freight capacity of the Baku&ndash;Tbilisi&ndash;Kars railway"]],
+  "sections": [
+    {"h": "The numbers", "p": [
+      "Trade between Azerbaijan and Georgia grew 42% in the first nine months of 2026, Azerbaijan&rsquo;s Prime Minister Ali Asadov said at the 11th meeting of the two countries&rsquo; Intergovernmental Commission on Economic Cooperation. Nine-month trade has already passed last year&rsquo;s full-year total and is close to USD 1 billion.",
+      "Azerbaijani customs data for January to September show USD 888 million of trade, of which USD 757 million were Azerbaijani exports to Georgia."
+    ]},
+    {"h": "Investment and rail", "p": [
+      "Azerbaijan is Georgia&rsquo;s largest investor, with investments approaching USD 4 billion, Asadov said. He pointed to the Baku&ndash;Tbilisi&ndash;Kars railway as an example of the partnership: the line runs at full capacity after its freight capacity was raised to five million tonnes."
+    ]},
+    {"h": "Energy is next", "p": [
+      "In May 2026 the two governments agreed a joint communiqu&eacute; on gas supplies, electricity trade and transit, and oil transport. Azerbaijan plans to supply electricity to Georgia and to send power through Georgia to T&uuml;rkiye, and 20-year electricity supply and transit agreements could start from January 2027.",
+      "Azerbaijan&rsquo;s ambassador in Tbilisi has set a goal of more than USD 2 billion in bilateral trade, without a deadline."
+    ]}
+  ],
+  "why": [
+    "Growing rail and energy flows between Baku and Tbilisi support logistics, warehousing and industrial real estate along the corridor.",
+    "Traders moving goods through Azerbaijan and Georgia gain capacity on a route that links Central Asia with Europe.",
+    "For US investors, the Caucasus leg of the Middle Corridor is already a working trade route."
+  ],
+  "risk": "Trade figures differ between sources and agencies, and the 20-year energy contracts had not been confirmed as signed at the time of writing.",
+  "sources": [
+    {"title": "Azerbaijan is Georgia's largest investor with nearly $4 billion, Asadov says", "outlet": "Report.az", "date": "30 October 2026", "url": "https://report.az/en/foreign-politics/azerbaijan-is-georgia-s-largest-investor-with-nearly-4-billion-asadov-says"},
+    {"title": "Azerbaijan, Georgia target $2bn trade with energy deals", "outlet": "AnewZ, citing Azertac", "date": "19 October 2026", "url": "https://anewz.tv/business/economy/25662/azerbaijan-georgia-target-2bn-trade-with-energy-deals/news"}
+  ],
+  "linkedin_status": "not planned"
+}

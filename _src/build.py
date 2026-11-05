@@ -1,0 +1,727 @@
+#!/usr/bin/env python3
+"""GESA Group site: US <-> Caucasus & Central Asia.
+Sources live in _src/ (not served by GitHub Pages); the site is generated into the repo root.
+Run: python3 _src/build.py   (Insights articles come from _src/news/*.json, see _src/NEWS_GUIDE.md)"""
+import os, shutil, json, glob, datetime, html
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.dirname(HERE)
+BRAND = "GESA Group"
+UPDATED = "November 2026"
+REGION = "the Caucasus &amp; Central Asia"
+CSSV = "4"
+
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+
+def nice_date(iso):
+    d = datetime.date.fromisoformat(iso)
+    return f"{d.day} {MONTHS[d.month - 1]} {d.year}"
+
+
+def load_news():
+    items = []
+    for f in glob.glob(os.path.join(HERE, "news", "*.json")):
+        a = json.load(open(f, encoding="utf-8"))
+        if a.get("status", "published") == "published":
+            items.append(a)
+    items.sort(key=lambda a: (a["date"], a["slug"]), reverse=True)
+    return items
+
+
+NEWS = load_news()
+
+FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
+         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">')
+
+def px(pid, w=1400):
+    return f"https://images.pexels.com/photos/{pid}/pexels-photo-{pid}.jpeg?auto=compress&cs=tinysrgb&w={w}"
+
+IMG = {
+    "tanker": px(15944128), "port": px(36652842), "silos": px(38313746),
+    "tbilisi": px(30833301), "miami": px(33664888), "baku": px(17857195),
+    "miami2": px(38026450), "almaty": px(28958894),
+}
+
+NAV = [("real-estate.html", "Real estate"), ("trade-finance.html", "Trade finance"),
+       ("consulting.html", "Consulting"), ("why-the-region.html", "Why the region"), ("insights.html", "Insights"), ("about.html", "About")]
+
+ARROW = '<span aria-hidden="true">&rarr;</span>'
+
+
+def header(active):
+    links = "".join(f'<a href="{h}"{" aria-current=\"page\"" if h == active else ""}>{t}</a>' for h, t in NAV)
+    cur = ' aria-current="page"' if active == "contact.html" else ""
+    return f'''<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="index.html" aria-label="{BRAND} home"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span><span class="brand-text"><b>{BRAND}</b><small>US &middot; Caucasus &middot; Central Asia</small></span></a>
+    <nav class="nav" aria-label="Main">{links}<a class="nav-cta" href="contact.html"{cur}>Submit a deal</a></nav>
+  </div>
+</header>'''
+
+
+FOOTER = f'''<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span><span class="brand-text"><b>{BRAND}</b><small>US &middot; Caucasus &middot; Central Asia</small></span></a>
+      <p>The bridge between the United States and Georgia, Armenia, Azerbaijan, Kazakhstan and Uzbekistan. Partner on the ground: K+A Consulting, Tbilisi.</p>
+    </div>
+    <div><h4>Services</h4><a href="real-estate.html">Real estate</a><a href="trade-finance.html">Trade finance</a><a href="consulting.html">Real estate consulting</a></div>
+    <div><h4>Company</h4><a href="why-the-region.html">Why the region</a><a href="insights.html">Insights</a><a href="about.html">About</a><a href="contact.html">Submit a deal</a></div>
+    <div><h4>Contact</h4><p class="mono">XX@XX.com</p><p class="mono">+1 XXX XXX XXXX</p><p class="mono">WhatsApp: XX</p></div>
+  </div>
+  <div class="wrap legal">
+    <p>{BRAND} acts as an introducer and advisor. It is not a bank, lender, broker-dealer, investment adviser or real estate brokerage, and it does not offer or sell securities. Where a transaction requires a licence, such as US real estate brokerage, we work with appropriately licensed partners. Nothing on this site is an offer of finance or investment, or legal, tax or financial advice. Information current as of {UPDATED}. Photos: Pexels.</p>
+    <p>&copy; 2026 {BRAND}. Test version, not for distribution.</p>
+  </div>
+</footer>'''
+
+
+def page(title, desc, active, body):
+    return f'''<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+{FONTS}
+<link rel="stylesheet" href="style.css?v={CSSV}">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+{header(active)}
+<main id="main">
+{body}
+</main>
+{FOOTER}
+</body>
+</html>
+'''
+
+
+# ---------------- dot map ----------------
+ROWS = [r.strip() for r in open(os.path.join(HERE, "map_rows.txt")) if r.strip()]
+LON0, LAT0, STEP = -128.0, 66.0, 1.6
+W = 1000
+CW = W / (len(ROWS[0]) - 1 + 1)  # px per column
+H_MAP = CW * len(ROWS)
+
+
+def xy(lon, lat):
+    return ((lon - LON0) / STEP + 0.5) * CW, ((LAT0 - lat) / STEP + 0.5) * CW
+
+
+US = [("New York", -74.01, 40.71), ("Miami", -80.19, 25.76), ("Tampa", -82.46, 27.95)]
+REG = [("Tbilisi", 44.79, 41.72), ("Yerevan", 44.51, 40.18), ("Baku", 49.87, 40.41),
+       ("Tashkent", 69.24, 41.30), ("Almaty", 76.95, 43.24), ("Astana", 71.43, 51.17)]
+
+
+def dot_map(compact=False):
+    r = CW * 0.26
+    dots = []
+    for j, row in enumerate(ROWS):
+        for i, ch in enumerate(row):
+            if ch == "1":
+                dots.append(f'<circle cx="{(i+0.5)*CW:.1f}" cy="{(j+0.5)*CW:.1f}" r="{r:.2f}"/>')
+    parts = [f'<svg class="dotmap" viewBox="0 0 {W} {H_MAP:.0f}" role="img" aria-labelledby="mt md" preserveAspectRatio="xMidYMid meet">',
+             '<title id="mt">Map: United States to the Caucasus and Central Asia</title>',
+             '<desc id="md">New York, Miami and Tampa connected to Tbilisi, Yerevan, Baku, Tashkent, Almaty and Astana.</desc>',
+             '<defs><radialGradient id="glow"><stop offset="0" stop-color="var(--orange)" stop-opacity=".85"/><stop offset="1" stop-color="var(--orange)" stop-opacity="0"/></radialGradient></defs>',
+             f'<g class="land">{"".join(dots)}</g>']
+    # arcs
+    pairs = [("New York", "Tbilisi", 150), ("Miami", "Tashkent", 210), ("New York", "Astana", 175), ("Tampa", "Baku", 190)]
+    allc = {n: (lo, la) for n, lo, la in US + REG}
+    for k, (a, b, lift) in enumerate(pairs):
+        x1, y1 = xy(*allc[a]); x2, y2 = xy(*allc[b])
+        mx, my = (x1 + x2) / 2, min(y1, y2) - lift
+        parts.append(f'<path class="arc arc{k}" d="M{x1:.1f},{y1:.1f} Q{mx:.1f},{my:.1f} {x2:.1f},{y2:.1f}" pathLength="100"/>')
+    for n, lo, la in US + REG:
+        x, y = xy(lo, la)
+        parts.append(f'<circle class="halo" cx="{x:.1f}" cy="{y:.1f}" r="16" fill="url(#glow)"/><circle class="city" cx="{x:.1f}" cy="{y:.1f}" r="3.6"/>')
+    labels = [  # text, anchor city, dx, dy, anchor
+        ("New York", "New York", 10, -10, "start"), ("Miami &middot; Tampa", "Miami", 10, 18, "start"),
+        ("Tbilisi &middot; Yerevan &middot; Baku", "Tbilisi", -10, -14, "end"),
+        ("Tashkent", "Tashkent", -8, 22, "end"), ("Almaty", "Almaty", 9, 16, "start"), ("Astana", "Astana", 10, -8, "start")]
+    for t, c, dx, dy, an in labels:
+        x, y = xy(*allc[c])
+        parts.append(f'<text class="lbl" x="{x+dx:.1f}" y="{y+dy:.1f}" text-anchor="{an}">{t}</text>')
+    parts.append('</svg>')
+    return "\n".join(parts)
+
+
+# ---------------- shared blocks ----------------
+def cta_band(h="Have a deal on one side that needs the other?",
+             p="Send us the outline. We reply within two working days and ask for documents only once there is a fit."):
+    return f'''<section class="cta-band"><div class="wrap cta-row">
+  <div><h2>{h}</h2><p>{p}</p></div>
+  <a class="btn btn-orange" href="contact.html">Start your enquiry {ARROW}</a>
+</div></section>'''
+
+
+def page_hero(eyebrow, h1, lede, img=None, alt=""):
+    pic = f'<div class="ph-img"><img src="{img}" alt="{alt}" loading="eager"></div>' if img else ""
+    cls = "page-hero has-img" if img else "page-hero"
+    return f'''<section class="{cls}"><div class="wrap ph-grid">
+  <div class="ph-copy"><p class="eyebrow">{eyebrow}</p><h1>{h1}</h1><p class="lede">{lede}</p>
+  <div class="actions"><a class="btn btn-orange" href="contact.html">Start your enquiry {ARROW}</a></div></div>
+  {pic}
+</div></section>'''
+
+
+def faq(items):
+    return '<div class="faq">' + "".join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q, a in items) + '</div>'
+
+
+def steps(items, title):
+    lis = "".join(f'<li><span class="num">{i}</span><div><h3>{h}</h3><p>{p}</p></div></li>' for i, (h, p) in enumerate(items, 1))
+    return f'<div class="section-head center"><h2>{title}</h2></div><ol class="steps">{lis}</ol>'
+
+
+ICONS = {
+    "globe": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>',
+    "chart": '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+    "ship": '<svg viewBox="0 0 24 24"><path d="M3 17l2 4h14l2-4H3zM6 17V9h12v8M9 9V5h6v4"/></svg>',
+    "handshake": '<svg viewBox="0 0 24 24"><path d="M2 12l5-5 5 3 5-3 5 5-5 5-3-2-2 2-3-2-2 2z"/></svg>',
+    "pin": '<svg viewBox="0 0 24 24"><path d="M12 22s7-7 7-12a7 7 0 10-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+    "phone": '<svg viewBox="0 0 24 24"><path d="M5 3h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A18 18 0 013 5a2 2 0 012-2z"/></svg>',
+    "scale": '<svg viewBox="0 0 24 24"><path d="M12 3v18M5 21h14M4 8h16M7 8l-3 7h6zM17 8l-3 7h6z"/></svg>',
+    "building": '<svg viewBox="0 0 24 24"><path d="M4 21V5l8-3v19M12 9h8v12M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2M2 21h20"/></svg>',
+}
+
+
+def icon(n):
+    return f'<span class="ic" aria-hidden="true">{ICONS[n]}</span>'
+
+
+# ---------------- INSIGHTS helpers ----------------
+def tagline(a):
+    return " &middot; ".join(html.escape(c) for c in a["countries"])
+
+
+def ins_card(a):
+    return f'''<a class="ins-card" href="insights-{a["slug"]}.html">
+  <p class="tag">{tagline(a)}</p>
+  <h3>{a["title"]}</h3>
+  <p>{a["dek"]}</p>
+  <p class="ins-meta"><time datetime="{a["date"]}">{nice_date(a["date"])}</time><span class="more">Read {ARROW}</span></p>
+</a>'''
+
+
+def latest_block():
+    if not NEWS:
+        return ""
+    cards = "".join(ins_card(a) for a in NEWS[:3])
+    return f'''<section class="section alt">
+  <div class="wrap">
+    <div class="section-head center"><h2>News from <b>the bridge</b></h2><p class="muted">Positive news on business ties between the US, the Caucasus and Central Asia.</p></div>
+    <div class="ins-grid">{cards}</div>
+    <p class="center-link"><a href="insights.html">All insights {ARROW}</a></p>
+  </div>
+</section>'''
+
+
+# ---------------- HOME ----------------
+home = f'''
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow light">United States &#8644; Caucasus &amp; Central Asia</p>
+      <h1>The bridge between the US and <b>{REGION}.</b></h1>
+      <p class="lede">We connect investors, property owners and commodity traders on both sides: real estate deals in either direction, and trade financing through our partner banks.</p>
+      <div class="actions"><a class="btn btn-orange" href="contact.html">Start your enquiry {ARROW}</a><a class="btn btn-ghost" href="#how">See how it works {ARROW}</a></div>
+    </div>
+    <div class="map-wrap">{dot_map()}</div>
+    <ul class="trust">
+      <li>Partners in the US and in the region</li>
+      <li>On the ground with K+A Consulting</li>
+      <li>People you can call</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><h2>Facing similar <b>challenges?</b></h2></div>
+    <div class="cards4">
+      <article class="card">{icon("globe")}<h3>All your capital is in one world</h3><p>Fast growth at home in the Caucasus or Central Asia, but everything sits in one currency, one legal system and one market. You want a stable asset in the US.</p></article>
+      <article class="card">{icon("chart")}<h3>Returns at home are thin</h3><p>Mature US markets are safe but yield little. Economies across {REGION} are among the faster growing in the world, and you want a share of that growth.</p></article>
+      <article class="card">{icon("ship")}<h3>Every trade needs working capital</h3><p>Each new cargo ties up cash long before your buyer pays. Bank limits rarely grow as fast as your order book.</p></article>
+      <article class="card">{icon("handshake")}<h3>No one you trust on the other side</h3><p>Different law, language, banks and habits. You need partners who actually do business there, not a directory of contacts.</p></article>
+    </div>
+    <p class="center-link"><a href="#services">Our services are built for exactly these situations {ARROW}</a></p>
+  </div>
+</section>
+
+<section class="section alt" id="services">
+  <div class="wrap">
+    <div class="section-head center"><h2>Two directions. <b>Two core services.</b></h2><p class="muted">Real estate and trade finance carry equal weight. Consulting supports both.</p></div>
+    <div class="photo-cards">
+      <a class="pcard" href="real-estate.html">
+        <div class="pimg"><img src="{IMG["tbilisi"]}" alt="Modern towers in Tbilisi with mountains behind" loading="lazy"></div>
+        <div class="pbody"><p class="tag">Real estate</p><h3>Invest across the bridge, <b>in either direction</b></h3>
+        <p>US investors buying in Georgia, Armenia, Azerbaijan, Kazakhstan or Uzbekistan. Investors from the region buying in New York and Florida. We source, match and manage the process; licensed partners handle US brokerage.</p>
+        <span class="more">Real estate {ARROW}</span></div>
+      </a>
+      <a class="pcard" href="trade-finance.html">
+        <div class="pimg"><img src="{IMG["tanker"]}" alt="Tanker ship at sea" loading="lazy"></div>
+        <div class="pbody"><p class="tag">Trade finance</p><h3>Financing for commodity traders, <b>secured by the cargo</b></h3>
+        <p>We introduce US and regional traders of exchange-traded commodities to partner banks that finance against the goods, and prepare the file so the bank can decide quickly.</p>
+        <span class="more">Trade finance {ARROW}</span></div>
+      </a>
+    </div>
+    <a class="strip" href="consulting.html"><span class="tag">Consulting</span><span>Real estate advice for investors buying outside their home market: market entry, acquisition support, asset oversight.</span><span class="more">Consulting {ARROW}</span></a>
+  </div>
+</section>
+
+<section class="section why-us">
+  <div class="wrap split">
+    <div class="split-copy">
+      <p class="eyebrow">Why us</p>
+      <h2>We know both worlds <b>because we do business in both.</b></h2>
+      <p class="lede">Our partners were born in Georgia, studied in England, and live in the United States and France. We run our own businesses in the region and in the West, so we know how deals actually get done on each side, not just the culture.</p>
+      <ul class="checks">
+        <li><b>Roots in the region.</b> Native languages, family and business ties across the Caucasus and Central Asia.</li>
+        <li><b>Western training and base.</b> Educated in the UK, working from the US and Europe.</li>
+        <li><b>Skin in the game.</b> Our own operating businesses and real estate in both worlds.</li>
+        <li><b>A network on every side.</b> Investors, banks, traders and advisers in the US, Europe, the Caucasus and Asia.</li>
+        <li><b>Local partner on the ground.</b> K+A Consulting in Tbilisi handles execution in the region.</li>
+      </ul>
+    </div>
+    <div class="split-img"><img src="{IMG["miami"]}" alt="Miami skyline" loading="lazy"><img src="{IMG["baku"]}" alt="Baku skyline at sunset" loading="lazy"></div>
+  </div>
+</section>
+
+<section class="section alt" id="how">
+  <div class="wrap narrow">
+    {steps([("Enquiry", "Send the outline through a short form. We check the fit against what our partners actually do."),
+            ("NDA", "If there is a fit, we sign mutual confidentiality before names or documents change hands."),
+            ("Mandate", "A short engagement letter sets out scope, fees and who we introduce you to."),
+            ("Introduction", "We present your file to the right counterparty or bank and manage questions and diligence."),
+            ("Closing", "Lawyers, banks and licensed partners complete the transaction. We stay with you until it closes.")],
+           'From first message to closing <b>in five steps.</b>')}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><h2>Our partners&rsquo; <b>track record</b></h2><p class="muted">Anonymised. Completed by our partners before {BRAND} was formed.</p></div>
+    <div class="records">
+      <article class="record"><p class="tag">Georgia &middot; Real estate</p><p class="fig">USD 1.5m</p><p>Raised from a foreign investor for a serviced-apartment project in Tbilisi.</p></article>
+      <article class="record"><p class="tag">Georgia &middot; Hospitality</p><p class="fig">80 rooms</p><p>Hotel acquisition in Tbilisi, from search to closing.</p></article>
+      <article class="record"><p class="tag">Kazakhstan &middot; Debt</p><p class="fig">EUR 15m</p><p>Debt refinancing with UK and EU lenders for a Kazakh private client.</p></article>
+      <article class="record"><p class="tag">Armenia &middot; Trade finance</p><p class="fig">USD 4m</p><p>Bank credit line for a commodity trader operating between Armenia and Dubai.</p></article>
+      <article class="record"><p class="tag">Armenia &amp; Azerbaijan</p><p class="fig">Prime assets</p><p>Several prime real estate transactions in Yerevan and Baku.</p></article>
+      <article class="record ph"><p class="tag">United States &middot; Real estate</p><p class="fig">XX</p><p>XX: transaction to be confirmed.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section navy">
+  <div class="wrap">
+    <div class="section-head"><p class="eyebrow light">Why the region</p><h2>Where the growth is, <b>and where the trade routes run.</b></h2></div>
+    <div class="stats">
+      <div><p class="big">5.2%</p><p>IMF growth forecast for the Caucasus and Central Asia in 2026</p></div>
+      <div><p class="big">7.8%</p><p>IMF growth forecast for Uzbekistan in 2026</p></div>
+      <div><p class="big">7%</p><p>World Bank growth forecast for Georgia in 2026</p></div>
+      <div><p class="big">+22%</p><p>Middle Corridor freight, January to August 2026</p></div>
+    </div>
+    <p class="note">Sources: IMF (October 2026), World Bank (October 2026), Ministry of Transport of Kazakhstan (September 2026).</p>
+    <a class="btn btn-ghost" href="why-the-region.html">Why the Caucasus &amp; Central Asia {ARROW}</a>
+  </div>
+</section>
+{latest_block()}
+{cta_band()}
+'''
+
+# ---------------- REAL ESTATE ----------------
+real_estate = page_hero("Real estate", "Property deals across the bridge, <b>in both directions</b>",
+    "We find the counterpart your deal is missing: a buyer, a seller, a co-investor or a property that fits your brief. US brokerage is handled by licensed partners.",
+    IMG["tbilisi"], "Modern towers in Tbilisi") + f'''
+<section class="section">
+  <div class="wrap">
+    <div class="two-col">
+      <div class="col-card">
+        <p class="tag">Into the region</p><h3>US investors buying in the Caucasus &amp; Central Asia</h3>
+        <ul class="checks">
+          <li>Residential, hospitality and commercial assets in Tbilisi, Batumi, Yerevan, Baku, Almaty, Astana and Tashkent</li>
+          <li>Search against your brief: location, asset type, budget, yield</li>
+          <li>Local lawyers, notaries and banks through K+A Consulting</li>
+          <li>Co-investment with established local developers</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <p class="tag">Into the US</p><h3>Investors from the region buying in the United States</h3>
+        <ul class="checks">
+          <li>New York and Florida (Miami, Tampa) residential and commercial property</li>
+          <li>Introductions to off-market sellers and developers</li>
+          <li>Coordination with US lawyers, lenders, inspectors and licensed agents</li>
+          <li>Diversify out of one currency and one legal system</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head center"><h2>Asset types <b>we work with</b></h2></div>
+    <div class="chips center"><span>Residential units and portfolios</span><span>Multifamily</span><span>Hotels and serviced apartments</span><span>Offices and retail</span><span>Logistics and land</span><span>Development projects</span></div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap narrow">
+    {steps([("Brief", "Tell us what you have or what you are looking for, and your budget or price."),
+            ("Match", "We shortlist assets or investors from both networks and share them after an NDA."),
+            ("Diligence", "Site visits, documents and local advisers on whichever side of the bridge the asset is."),
+            ("Closing", "Licensed brokers, lawyers and notaries complete the deal. We coordinate to the end.")],
+           'How a property deal <b>moves.</b>')}
+  </div>
+</section>
+<section class="section alt">
+  <div class="wrap narrow">
+    <div class="section-head center"><h2>Common <b>questions</b></h2></div>
+    {faq([
+      ("Do you act as a real estate broker in the US?", "No. US brokerage requires a state licence. We introduce the parties and manage the process, and licensed brokerage partners handle the regulated part of the transaction."),
+      ("Can foreigners buy property in Georgia, Armenia, Azerbaijan, Kazakhstan and Uzbekistan?", "Rules differ by country and by type of property, especially for land. We check the rules for each deal with local lawyers before anything is signed."),
+      ("What is a typical deal size?", "XX: to be confirmed."),
+      ("Do you bring investors into a project as shareholders?", "Not at this stage. We work on direct purchases, sales and property-level co-investment. Share offerings are outside our current scope."),
+    ])}
+  </div>
+</section>
+{cta_band("Buying, selling or raising capital for a property?")}
+'''
+
+# ---------------- TRADE FINANCE ----------------
+trade = page_hero("Trade finance", "Working capital for commodity traders, <b>secured by the cargo</b>",
+    "We introduce traders in the US and in the Caucasus and Central Asia to partner banks that finance trades against the goods themselves, and we prepare the file so the bank can decide quickly.",
+    IMG["port"], "Container port with cranes") + f'''
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><h2>Is your trade <b>a fit?</b></h2><p class="muted">What our partner banks typically look for.</p></div>
+    <div class="cards3">
+      <article class="card">{icon("chart")}<h3>Exchange-traded commodity</h3><p>Liquid goods with a public market price: oil products, coal, metals, grain, fertilisers. Niche goods without a quoted price usually do not qualify.</p></article>
+      <article class="card">{icon("ship")}<h3>Goods as collateral</h3><p>The bank lends against the cargo and takes control of it. Real estate is generally not accepted as security.</p></article>
+      <article class="card">{icon("scale")}<h3>Short tenor</h3><p>Financing for one trade cycle, typically one to three months, covering a share of the goods&rsquo; value.</p></article>
+      <article class="card">{icon("handshake")}<h3>Known counterparties</h3><p>A track record with buyers and sellers, and documents that show the flow: contracts, invoices, inspection reports.</p></article>
+      <article class="card">{icon("building")}<h3>Logistics planned</h3><p>Freight is usually covered by the trader or by extra collateral, so expensive routes need planning up front.</p></article>
+      <article class="card">{icon("globe")}<h3>Full compliance</h3><p>Account opening and KYC with the bank. Sanctioned goods, parties and routes are excluded without exception.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section alt">
+  <div class="wrap split rev">
+    <div class="split-img one"><img src="{IMG["silos"]}" alt="Grain silos" loading="lazy"></div>
+    <div class="split-copy">
+      {steps([("Screening", "A short form: what you buy and sell, volumes, counterparties and the amount you need."),
+              ("File", "We help you build a trading profile: flows, history, contract structure."),
+              ("Bank review", "We present the file to the partner banks that fit and manage their questions."),
+              ("Account and limit", "The bank opens an account and sets a limit for your counterparties."),
+              ("Trade", "Each trade is financed against the cargo and repaid when your buyer pays.")],
+             'From first call <b>to drawdown.</b>')}
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap narrow">
+    <div class="section-head center"><h2>Common <b>questions</b></h2></div>
+    {faq([
+      ("Are you a lender?", "No. We are an introducer. Credit decisions, pricing and terms belong to the partner bank."),
+      ("Which banks do you work with?", "Several partner banks. We match each trade to the banks whose criteria it fits and share names after an NDA."),
+      ("Do you finance invoices (factoring)?", "Not currently. Our partner banks prefer trades secured by goods they can take control of and sell."),
+      ("Who can apply?", "Traders based in the US and in Georgia, Armenia, Azerbaijan, Kazakhstan and Uzbekistan, subject to the bank&rsquo;s compliance review."),
+    ])}
+  </div>
+</section>
+{cta_band("Trading a liquid commodity and need working capital?", "Tell us what you trade, in what volumes, and how much financing you need.")}
+'''
+
+# ---------------- CONSULTING ----------------
+consulting = page_hero("Consulting", "Real estate advice <b>for cross-border investors</b>",
+    f"Independent advice for investors and owners working between the US and {REGION}, from first look to ongoing oversight.",
+    IMG["miami2"], "Residential towers") + f'''
+<section class="section">
+  <div class="wrap">
+    <div class="cards3">
+      <article class="card">{icon("pin")}<h3>Market entry and feasibility</h3><p>Where to buy, realistic yields, costs and taxes, and the structures local advisers typically use.</p></article>
+      <article class="card">{icon("building")}<h3>Acquisition support</h3><p>Underwriting, coordination of lawyers, surveyors and lenders, and negotiation support until closing.</p></article>
+      <article class="card">{icon("chart")}<h3>Asset oversight</h3><p>An owner&rsquo;s representative for property managers and contractors, with regular reporting on income and costs.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section alt">
+  <div class="wrap narrow">
+    <div class="section-head center"><h2>How we <b>charge</b></h2></div>
+    <p class="center-p">A fixed fee per scope or a monthly retainer, agreed in writing before work starts. Where consulting leads to a transaction, fees are set out in the mandate.</p>
+    <p class="center-p muted small">We are not lawyers or tax advisers. Legal and tax questions go to qualified local advisers, whom we coordinate.</p>
+  </div>
+</section>
+{cta_band("Looking at a market you don&rsquo;t know yet?")}
+'''
+
+# ---------------- WHY THE REGION ----------------
+def country(name, items):
+    lis = "".join(f"<li>{i}</li>" for i in items)
+    return f'<article class="country"><h3>{name}</h3><ul class="checks">{lis}</ul></article>'
+
+why = page_hero("Why the region", "Why the Caucasus &amp; Central Asia, <b>and why now</b>",
+    "Five countries between China, Russia, Iran, Turkey and Europe, growing faster than most of the world and sitting on the trade route that links Asia and Europe.",
+    IMG["baku"], "Baku skyline at sunset") + f'''
+<section class="section">
+  <div class="wrap">
+    <div class="stats light">
+      <div><p class="big">5.2%</p><p>IMF growth forecast for the Caucasus and Central Asia in 2026</p></div>
+      <div><p class="big">7.8%</p><p>IMF growth forecast for Uzbekistan in 2026, raised from 6.8%</p></div>
+      <div><p class="big">7%</p><p>World Bank growth forecast for Georgia in 2026, raised from 5%</p></div>
+      <div><p class="big">+22%</p><p>Middle Corridor freight volume, January to August 2026</p></div>
+    </div>
+    <p class="note dark">Sources: IMF via Kun.uz (13 October 2026), World Bank via Georgia Today (7 October 2026), Ministry of Transport of Kazakhstan via Trend (9 September 2026).</p>
+  </div>
+</section>
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head center"><h2>Six reasons <b>investors look here</b></h2></div>
+    <div class="cards3">
+      <article class="card">{icon("chart")}<h3>Growth</h3><p>The region is forecast to grow at more than 5% in 2026, several times the pace of most developed economies.</p></article>
+      <article class="card">{icon("ship")}<h3>The Middle Corridor</h3><p>The Trans-Caspian route links China and Central Asia with Europe through Kazakhstan, the Caspian, Azerbaijan, Georgia and Turkey, and its volumes are rising fast.</p></article>
+      <article class="card">{icon("globe")}<h3>Commodities</h3><p>Oil and gas in Kazakhstan and Azerbaijan, metals and uranium in Kazakhstan, gold and natural gas in Uzbekistan, grain across the region: real flows that need trade finance.</p></article>
+      <article class="card">{icon("scale")}<h3>Familiar legal anchors</h3><p>Kazakhstan&rsquo;s Astana International Financial Centre has a court based on English common law and its own arbitration centre.</p></article>
+      <article class="card">{icon("building")}<h3>Real estate demand</h3><p>Growing capitals, tourism and new residents are driving demand for housing, hotels and offices in Tbilisi, Batumi, Yerevan, Baku, Almaty and Tashkent.</p></article>
+      <article class="card">{icon("handshake")}<h3>Diversification</h3><p>For US portfolios, exposure to markets that move differently from the US. For regional investors, a stable US asset alongside home-market growth.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><h2>Country <b>by country</b></h2></div>
+    <div class="countries">
+      {country("Georgia", ["Black Sea ports of Poti and Batumi on the Middle Corridor", "Corporate profit tax applies only when profits are distributed", "Fast company registration and an open real estate market"])}
+      {country("Armenia", ["Fast-growing tech and services sector", "Gateway between the Caucasus, Iran and the Middle East", "Active residential market in Yerevan"])}
+      {country("Azerbaijan", ["Oil and gas exporter on the Caspian", "Baku port at Alat is a Middle Corridor hub", "Large public and private development projects in Baku"])}
+      {country("Kazakhstan", ["Largest economy in Central Asia", "Oil, metals, uranium and grain exporter", "AIFC: common law court and arbitration in Astana"])}
+      {country("Uzbekistan", ["Most populous country in Central Asia", "Economic opening and reforms since 2017", "Gold, natural gas, cotton and fast-growing Tashkent"])}
+    </div>
+    <p class="note dark">These markets also carry real risks: currency volatility, uneven legal enforcement and sanctions exposure in neighbouring countries. We screen every party and transaction, and local advisers check every deal. Information current as of {UPDATED}; not investment, legal or tax advice.</p>
+  </div>
+</section>
+{cta_band("Want to explore an opportunity in the region?")}
+'''
+
+# ---------------- ABOUT ----------------
+about = page_hero("About", f"{BRAND} is a bridge <b>built by people from both sides</b>",
+    "Georgian roots, an English education, homes in the United States and France, and our own businesses in the region and in the West.") + f'''
+<section class="section">
+  <div class="wrap split">
+    <div class="split-copy">
+      <h2>Two partners, <b>two bases</b></h2>
+      <p>One partner works from Florida and New York, sourcing deals and building relationships in the US. The other works with investors, banks and traders across the Caucasus, Central Asia and Europe. Between us we cover both ends of every deal.</p>
+      <p>Execution in the region runs through our partner on the ground, K+A Consulting in Tbilisi.</p>
+    </div>
+    <div class="split-img one"><img src="{IMG["almaty"]}" alt="Almaty cityscape with mountains" loading="lazy"></div>
+  </div>
+</section>
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head center"><h2>Who sits on <b>the other side of the table</b></h2></div>
+    <div class="chips center"><span>Private investors (HNWI, UHNWI)</span><span>Single and multi-family offices</span><span>Partner banks and trade financiers</span><span>Commodity traders</span><span>Developers and property owners</span><span>Lawyers, notaries and tax advisers</span></div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><h2>Our <b>partners</b></h2></div>
+    <div class="team">
+      <div class="person ph"><div class="avatar" aria-hidden="true">XX</div><h3>XX</h3><p class="tag">Partner, United States</p><p>Profile coming soon.</p></div>
+      <div class="person ph"><div class="avatar" aria-hidden="true">XX</div><h3>XX</h3><p class="tag">Partner, Caucasus, Central Asia and Europe</p><p>Profile coming soon.</p></div>
+    </div>
+  </div>
+</section>
+{cta_band()}
+'''
+
+# ---------------- CONTACT ----------------
+def form(fid, title, intro, fields):
+    rows = []
+    for f in fields:
+        kind, name, label = f[0], f[1], f[2]
+        req = ' required' if name in ("name", "email") else ''
+        if kind == "select":
+            opts = "".join(f'<option>{o}</option>' for o in f[3])
+            rows.append(f'<label for="{fid}-{name}">{label}<select id="{fid}-{name}" name="{name}"{req}><option value="">Select</option>{opts}</select></label>')
+        elif kind == "textarea":
+            rows.append(f'<label class="full" for="{fid}-{name}">{label}<textarea id="{fid}-{name}" name="{name}" rows="4"></textarea></label>')
+        else:
+            rows.append(f'<label for="{fid}-{name}">{label}<input id="{fid}-{name}" name="{name}" type="{kind}"{req}></label>')
+    return f'''<form class="enquiry" id="form-{fid}" name="{fid}" method="POST" data-netlify="true" netlify-honeypot="company_url">
+  <input type="hidden" name="form-name" value="{fid}">
+  <p class="hp"><label>Leave empty <input name="company_url"></label></p>
+  <h3>{title}</h3><p class="muted">{intro}</p>
+  <div class="fields">{"".join(rows)}</div>
+  <label class="consent"><input type="checkbox" name="consent" required> I agree that my details are used to assess this enquiry.</label>
+  <button class="btn btn-orange" type="submit">Send enquiry {ARROW}</button>
+  <p class="form-note muted small" role="status"></p>
+</form>'''
+
+MARKETS = ["United States", "Georgia", "Armenia", "Azerbaijan", "Kazakhstan", "Uzbekistan"]
+ASSETS = ["Residential", "Multifamily", "Hospitality", "Commercial", "Land / development"]
+base = [("text", "name", "Full name"), ("email", "email", "Email"), ("text", "company", "Company"), ("select", "country", "Where you are based", MARKETS + ["Other"])]
+forms_html = (
+    form("trader", "Trade finance", "For traders looking for financing from partner banks.",
+         base + [("text", "commodity", "Commodity traded"),
+                 ("select", "liquidity", "Is it exchange-traded with a public price?", ["Yes", "Partly", "No, niche product"]),
+                 ("text", "volume", "Monthly volume"), ("text", "amount", "Financing needed (USD)"),
+                 ("textarea", "details", "Buyers, sellers and routes (XX: questions to be finalised)")]) +
+    form("investor", "Investor or buyer", "For investors and buyers looking for property or co-investment.",
+         base + [("select", "market", "Target market", MARKETS + ["Open"]), ("select", "asset", "Asset type", ASSETS),
+                 ("text", "budget", "Budget (USD)"), ("textarea", "details", "Your brief (XX: questions to be finalised)")]) +
+    form("owner", "Property owner or developer", "For owners and developers selling a property or raising capital.",
+         base + [("select", "location", "Property location", MARKETS), ("select", "asset", "Asset type", ASSETS),
+                 ("select", "need", "What you need", ["Buyer", "Co-investor", "Debt", "Advice"]),
+                 ("text", "value", "Asking price or amount sought (USD)"), ("textarea", "details", "Project summary (XX: questions to be finalised)")]))
+
+contact = page_hero("Submit a deal", "Tell us what you have, <b>or what you are looking for</b>",
+    "Choose the form that fits. We reply within two working days, and we ask for documents only after there is a fit and an NDA is in place.").replace(
+    f'<div class="actions"><a class="btn btn-orange" href="contact.html">Start your enquiry {ARROW}</a></div>', "") + f'''
+<section class="section">
+  <div class="wrap narrow">
+    <div class="tabs" role="tablist" aria-label="Enquiry type">
+      <button role="tab" id="tab-trader" aria-controls="form-trader" aria-selected="true">Trade finance</button>
+      <button role="tab" id="tab-investor" aria-controls="form-investor" aria-selected="false">Investor or buyer</button>
+      <button role="tab" id="tab-owner" aria-controls="form-owner" aria-selected="false">Owner or developer</button>
+    </div>
+    <div class="forms">{forms_html}</div>
+  </div>
+</section>
+<section class="section alt" id="contact">
+  <div class="wrap narrow">
+    <div class="section-head center"><h2>Prefer to <b>write directly?</b></h2></div>
+    <dl class="contact-list">
+      <div><dt>Email</dt><dd class="mono">XX@XX.com</dd></div>
+      <div><dt>Phone</dt><dd class="mono">+1 XXX XXX XXXX</dd></div>
+      <div><dt>WhatsApp / Telegram</dt><dd class="mono">XX</dd></div>
+    </dl>
+  </div>
+</section>
+<script>
+(function(){{
+  var tabs=[].slice.call(document.querySelectorAll('.tabs [role=tab]'));
+  function show(id){{tabs.forEach(function(t){{var on=t.getAttribute('aria-controls')===id;t.setAttribute('aria-selected',on);document.getElementById(t.getAttribute('aria-controls')).hidden=!on;}});}}
+  tabs.forEach(function(t){{t.addEventListener('click',function(){{show(t.getAttribute('aria-controls'));}});}});
+  var h=(location.hash||'').replace('#','');
+  show(['form-trader','form-investor','form-owner'].indexOf('form-'+h)>-1?'form-'+h:'form-trader');
+  [].slice.call(document.querySelectorAll('form.enquiry')).forEach(function(f){{
+    f.addEventListener('submit',function(e){{
+      if(location.hostname.indexOf('netlify')>-1)return;
+      e.preventDefault();
+      f.querySelector('.form-note').textContent='Test version: this form is not connected yet. Please write to XX@XX.com.';
+    }});
+  }});
+}})();
+</script>
+'''
+
+NOT_FOUND = page_hero("404", "This page <b>doesn&rsquo;t exist</b>", "The link may be out of date. Start from the home page or send us a deal directly.")
+
+# ---------------- INSIGHTS pages ----------------
+NO_CTA = f'<div class="actions"><a class="btn btn-orange" href="contact.html">Start your enquiry {ARROW}</a></div>'
+
+insights_index = page_hero("Insights", "News from <b>the bridge</b>",
+    "Positive news on business, trade and investment ties between the United States and Georgia, Armenia, Azerbaijan, Kazakhstan and Uzbekistan, and between the countries of the region. A new note every few days.").replace(NO_CTA, "") + f'''
+<section class="section">
+  <div class="wrap">
+    <div class="ins-grid">{"".join(ins_card(a) for a in NEWS) or '<p class="muted">The first notes are on their way.</p>'}</div>
+  </div>
+</section>
+{cta_band()}
+'''
+
+
+def article_page(a):
+    figs = "".join(f'<div><p class="big">{v}</p><p>{l}</p></div>' for v, l in a.get("figs", []))
+    secs = "".join(f'<h2>{s["h"]}</h2>' + "".join(f"<p>{p}</p>" for p in s["p"]) for s in a["sections"])
+    why = "".join(f"<li>{w}</li>" for w in a.get("why", []))
+    src = "".join(f'<li><a href="{html.escape(s["url"])}" target="_blank" rel="noopener">{s["title"]}</a>, {s["outlet"]}, {s["date"]}</li>' for s in a["sources"])
+    risk = f'<p class="risk"><b>Keep in mind:</b> {a["risk"]}</p>' if a.get("risk") else ""
+    hero = page_hero(f'{tagline(a)} &middot; {nice_date(a["date"])}', a["title"], a["dek"]).replace(NO_CTA, "")
+    others = [o for o in NEWS if o["slug"] != a["slug"]][:2]
+    more = ""
+    if others:
+        more = f'''<section class="section alt"><div class="wrap"><div class="section-head center"><h2>More from <b>the bridge</b></h2></div>
+<div class="ins-grid two">{"".join(ins_card(o) for o in others)}</div></div></section>'''
+    return hero + f'''
+<section class="section">
+  <div class="wrap article">
+    {f'<div class="stats light figs">{figs}</div>' if figs else ""}
+    {secs}
+    {f'<h2>What it means for business</h2><ul class="checks">{why}</ul>' if why else ""}
+    {risk}
+    <div class="help-box">
+      <h2>How {BRAND} can help</h2>
+      <p>We connect investors, property owners and commodity traders between the US and {REGION}. If this news touches a deal you are working on, send us the outline.</p>
+      <a class="btn btn-orange" href="contact.html">Start your enquiry {ARROW}</a>
+    </div>
+    <h2 class="src-h">Sources</h2>
+    <ul class="src">{src}</ul>
+    <p class="note dark">Information current as of {nice_date(a["date"])}. Summary in our own words of the sources listed; not investment, legal or tax advice.</p>
+    <p><a class="back" href="insights.html">&larr; All insights</a></p>
+  </div>
+</section>
+{more}
+{cta_band()}
+'''
+
+PAGES = [
+    ("index.html", f"{BRAND} | US to the Caucasus & Central Asia", "Real estate and trade finance introductions between the US and the Caucasus & Central Asia.", "index.html", home),
+    ("real-estate.html", f"Real Estate | {BRAND}", "Property deals between the US and Georgia, Armenia, Azerbaijan, Kazakhstan and Uzbekistan.", "real-estate.html", real_estate),
+    ("trade-finance.html", f"Trade Finance | {BRAND}", "Introductions to partner banks for commodity traders in the US and the Caucasus & Central Asia.", "trade-finance.html", trade),
+    ("consulting.html", f"Consulting | {BRAND}", "Real estate consulting for cross-border investors.", "consulting.html", consulting),
+    ("why-the-region.html", f"Why the Region | {BRAND}", "Why invest and trade in the Caucasus & Central Asia.", "why-the-region.html", why),
+    ("about.html", f"About | {BRAND}", f"About {BRAND}.", "about.html", about),
+    ("contact.html", f"Submit a Deal | {BRAND}", "Send us your deal or brief.", "contact.html", contact),
+    ("insights.html", f"Insights | {BRAND}", "Positive news on business ties between the US, the Caucasus and Central Asia.", "insights.html", insights_index),
+    ("404.html", f"Not Found | {BRAND}", "Page not found.", "", NOT_FOUND),
+] + [(f'insights-{a["slug"]}.html', f'{html.unescape(a["title"]).replace("<b>", "").replace("</b>", "")} | {BRAND}',
+      html.unescape(a["dek"]), "insights.html", article_page(a)) for a in NEWS]
+
+FAVICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#14213D"/><circle cx="10" cy="16" r="4" fill="#fff"/><circle cx="22" cy="16" r="4" fill="#F28C28"/><rect x="10" y="15" width="12" height="2" fill="#fff"/></svg>'
+
+README = f"""# {BRAND} website (test version)
+
+US to the Caucasus & Central Asia. Static site, English only.
+
+## How it is built
+- Sources are in `_src/` (GitHub Pages does not serve folders starting with `_`).
+- Edit `_src/build.py` (pages and texts), `_src/style.css`, or add an Insights article as `_src/news/<YYYY-MM-DD>-<slug>.json` (format: `_src/NEWS_GUIDE.md`).
+- Then run `python3 _src/build.py` and commit everything. The generated HTML files sit in the repo root.
+
+## Placeholders to replace
+- `XX` - email, phone, WhatsApp, team, US track record, typical deal size, final form questions
+
+## Photos
+Hotlinked from Pexels (free licence). Replace with own photos later.
+
+## Hosting
+GitHub Pages from `main` / root. For Netlify: no build command, publish directory `.`; forms already carry `data-netlify="true"`.
+
+## Before going live
+Remove the `noindex` meta tag from every page, replace robots.txt, add canonical and Open Graph tags and a sitemap once the domain is chosen.
+"""
+
+
+def build():
+    wanted = {p[0] for p in PAGES}
+    for f in glob.glob(os.path.join(OUT, "insights-*.html")):  # drop articles whose JSON was removed
+        if os.path.basename(f) not in wanted:
+            os.remove(f)
+    for fname, title, desc, active, body in PAGES:
+        open(os.path.join(OUT, fname), "w", encoding="utf-8").write(page(title, desc, active, body))
+    shutil.copy(os.path.join(HERE, "style.css"), os.path.join(OUT, "style.css"))
+    open(os.path.join(OUT, "favicon.svg"), "w").write(FAVICON)
+    open(os.path.join(OUT, "robots.txt"), "w").write("User-agent: *\nDisallow: /\n")
+    open(os.path.join(OUT, "README.md"), "w").write(README)
+
+
+if __name__ == "__main__":
+    build()
+    print("built", sorted(os.listdir(OUT)))
