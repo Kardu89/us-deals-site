@@ -1,0 +1,34 @@
+{
+  "slug": "socar-comstock-haynesville",
+  "date": "2026-11-07",
+  "status": "draft",
+  "countries": ["Azerbaijan", "United States"],
+  "title": "SOCAR buys into US shale gas <b>for USD 1.65 billion</b>",
+  "dek": "Azerbaijan&rsquo;s state energy company has agreed to take non-operated stakes in Comstock Resources&rsquo; Haynesville gas assets in North Louisiana and East Texas, with Comstock remaining operator.",
+  "figs": [["USD 1.65bn", "cash price, before customary adjustments"], ["20%", "of Comstock&rsquo;s Legacy Haynesville interest"], ["15%", "of Comstock&rsquo;s Western Haynesville interest"]],
+  "sections": [
+    {"h": "What was signed", "p": [
+      "SOCAR, the State Oil Company of Azerbaijan, signed a final purchase and sale agreement with Comstock Resources (NYSE: CRK) on 4 November 2026 and announced it the next day. The aggregate cash price is USD 1.65 billion, subject to customary purchase price adjustments, with an effective date of 1 July 2026.",
+      "SOCAR will acquire 20% of Comstock&rsquo;s interest in its Legacy Haynesville upstream assets, 15% of its interest in Western Haynesville, and 15% of Comstock&rsquo;s 73% holding in Pinnacle Gas Services LLC. The interests are non-operated: Comstock stays the operator."
+    ]},
+    {"h": "How the deal is built", "p": [
+      "SOCAR&rsquo;s share in Western Haynesville steps down to 7.5% after five years, once SOCAR has earned a 15% return on that part of its investment.",
+      "Comstock is a natural gas producer focused on the Haynesville shale in North Louisiana and East Texas. SOCAR takes the Pinnacle share without operational management rights."
+    ]},
+    {"h": "What comes next", "p": [
+      "SOCAR says the required government approvals and other legal procedures are under way. No closing date has been published."
+    ]}
+  ],
+  "why": [
+    "Capital is now flowing from the region into the US, not only the other way: a Caucasus state company is becoming a direct owner of American energy assets.",
+    "A large, long-term Azerbaijani position in US gas builds working relationships between banks, advisers and energy companies on both sides.",
+    "Cross-border investors of this size need legal, financial and real asset support in the US, which widens the field for US&ndash;Caucasus advisory work."
+  ],
+  "risk": "The deal still needs government approvals and has not closed; the price can move with customary adjustments.",
+  "sources": [
+    {"title": "SOCAR signs $1.65B deal to acquire stakes in Comstock&rsquo;s US assets", "outlet": "Trend News Agency, citing SOCAR", "date": "5 November 2026", "url": "https://trend.az/azerbaijan/4243057.html"},
+    {"title": "SOCAR and U.S.-based Comstock sign $1.65 billion deal", "outlet": "1news.az", "date": "5 November 2026", "url": "https://1news.az/en/news/20261105094507774-SOCAR-and-U-S-based-Comstock-sign-1-65-billion-deal"}
+  ],
+  "linkedin": "USD 1.65 billion from Baku into US shale gas.\n\nAzerbaijan's state energy company SOCAR signed a final agreement with Comstock Resources on 4 November to buy non-operated stakes in its Haynesville gas assets in Louisiana and Texas: 20% of Legacy Haynesville, 15% of Western Haynesville and a share in Pinnacle Gas Services LLC. Comstock remains operator. Government approvals are still pending.\n\nWhat it means: capital now moves both ways across the bridge. A Caucasus state company is becoming a direct owner of American energy assets, and that kind of investor needs partners on both sides. This is the US to Caucasus & Central Asia link GESA Group works on.\n\nSource: SOCAR via Trend News Agency, 5 November 2026\n\n#Azerbaijan #USA #NaturalGas #Investment #Caucasus",
+  "linkedin_status": "awaiting approval"
+}
