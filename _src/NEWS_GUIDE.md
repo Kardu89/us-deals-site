@@ -1,8 +1,8 @@
 # GESA Group Insights: how to add a news note
 
-GESA Group is the bridge between the United States and the Caucasus & Central Asia
-(Georgia, Armenia, Azerbaijan, Kazakhstan, Uzbekistan). Insights publishes POSITIVE news
-about business ties between these countries: US with any of the five, and the five with each other.
+GESA Group is the bridge between the United States and the Caucasus
+(Georgia, Armenia, Azerbaijan only; Central Asia is out of scope since Nov 2026). Insights publishes POSITIVE news
+about business ties between these countries: US with any of the three, and the three with each other.
 
 ## Rhythm and approval
 - One note every 4 days, plus one LinkedIn post on the GESA group company page
@@ -16,7 +16,7 @@ about business ties between these countries: US with any of the five, and the fi
 - Skip politics, conflict, sanctions stories and anything negative. Never touch sanctioned
   parties or Russia-related deals.
 - Reputable sources only (official ministries/agencies, Reuters, Bloomberg, RFE/RL, Euronews,
-  Eurasianet, Times of Central Asia, Astana Times, Kun.uz, Spot.uz, Trend, Report.az,
+  Eurasianet, Trend, Report.az, Azernews, Armenpress, ARKA,
   Civil.ge, bne IntelliNews). Open the original and check every number and its period.
 - Do not repeat a story already in `news/` (check slugs and titles).
 
@@ -33,7 +33,7 @@ about business ties between these countries: US with any of the five, and the fi
   "slug": "short-kebab-slug",
   "date": "YYYY-MM-DD",            // publication date on our site
   "status": "published",           // or "draft" (not built)
-  "countries": ["United States", "Uzbekistan"],
+  "countries": ["United States", "Georgia"],
   "title": "Plain part <b>bold part</b>",
   "dek": "One-sentence summary.",
   "figs": [["54", "label"], ["USD 12bn", "label"], ["8+", "label"]],

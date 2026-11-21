@@ -32,7 +32,7 @@ html,body{{margin:0;background:#0E1830}}
  <path d="{L["d"]}" transform="translate({lx:.1f} {ly:.1f}) scale({s:.5f})" fill="none" stroke="#33497A" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
 </svg>
 <div class="t"><div class="r"></div>
- <p class="h">The bridge between the US and<br><b>the Caucasus &amp; Central Asia</b></p>
+ <p class="h">The bridge between the US and<br><b>the Caucasus</b></p>
  <p class="s">Real estate<i>&middot;</i>Trade finance<i>&middot;</i>Advisory</p>
 </div></div></body></html>'''
 

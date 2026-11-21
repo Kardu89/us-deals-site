@@ -1,6 +1,6 @@
 # GESA Group website (test version)
 
-US to the Caucasus & Central Asia. Static site, English only.
+US to the Caucasus (Georgia, Armenia, Azerbaijan). Static site, English only.
 
 ## How it is built
 - Sources are in `_src/` (GitHub Pages does not serve folders starting with `_`).

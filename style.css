@@ -278,3 +278,5 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .src{margin:0 0 10px;padding-left:20px;display:grid;gap:8px;font-size:.95rem;color:var(--muted)}
 .src a{color:var(--navy);font-weight:600}
 .back{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:2px solid var(--orange)}
+.countries.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:860px){.countries.three{grid-template-columns:1fr}}
