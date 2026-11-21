@@ -8,7 +8,7 @@ US to the Caucasus (Georgia, Armenia, Azerbaijan). Static site, English only.
 - Then run `python3 _src/build.py` and commit everything. The generated HTML files sit in the repo root.
 
 ## Placeholders to replace
-- `XX` - email, phone, WhatsApp, team, US track record, typical deal size, final form questions
+- `XX` - email, team, US track record, typical deal size, final form questions
 
 ## Photos
 Hotlinked from Pexels (free licence). Replace with own photos later.
