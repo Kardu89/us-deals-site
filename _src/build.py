@@ -78,7 +78,7 @@ FOOTER = f'''<footer class="site-foot">
   <div class="wrap foot-grid">
     <div class="foot-brand">
       {BRAND_HTML}
-      <p>The bridge between the United States and the Caucasus: Georgia, Armenia and Azerbaijan. Partner on the ground: K+A Consulting, Tbilisi.</p>
+      <p>The bridge between the United States and the Caucasus: Georgia, Armenia and Azerbaijan. Partner on the ground: <a href="https://kaconsulting.ge/" target="_blank" rel="noopener">K+A Consulting</a>, Tbilisi.</p>
     </div>
     <div><h4>Services</h4><a href="real-estate.html">Real estate</a><a href="trade-finance.html">Trade finance</a><a href="consulting.html">Real estate consulting</a></div>
     <div><h4>Company</h4><a href="why-the-region.html">Why the region</a><a href="insights.html">Insights</a><a href="about.html">About</a><a href="contact.html">Submit a deal</a></div>
@@ -89,6 +89,10 @@ FOOTER = f'''<footer class="site-foot">
     <p>&copy; 2026 {BRAND}. Test version, not for distribution.</p>
   </div>
 </footer>'''
+
+
+SITE_URL = "https://thegesagroup.com/"
+ORG_LD = """<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"GESA Group","url":"https://thegesagroup.com/","logo":"https://thegesagroup.com/assets/gesa-logo.png","description":"Brokerage, introductions and advisory between the United States and the Caucasus: real estate, commodity trade finance and real estate consulting.","telephone":"+1-929-476-2354","areaServed":["United States","Georgia","Armenia","Azerbaijan"],"sameAs":["https://www.linkedin.com/company/86365036/"],"knowsAbout":["Real estate investment","Commodity trade finance","Cross-border advisory"]}</script>"""
 
 
 def page(title, desc, active, body):
@@ -103,6 +107,7 @@ def page(title, desc, active, body):
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 {FONTS}
 <link rel="stylesheet" href="style.css?v={CSSV}">
+{ORG_LD}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -478,7 +483,7 @@ about = page_hero("About", f"{BRAND} is a bridge <b>built by people from both si
     <div class="split-copy">
       <h2>Two partners, <b>two bases</b></h2>
       <p>One partner works from Florida and New York, sourcing deals and building relationships in the US. The other works with investors, banks and traders across the Caucasus and Europe. Between us we cover both ends of every deal.</p>
-      <p>Execution in the region runs through our partner on the ground, K+A Consulting in Tbilisi.</p>
+      <p>Execution in the region runs through our partner on the ground, <a href="https://kaconsulting.ge/" target="_blank" rel="noopener">K+A Consulting</a> in Tbilisi: local lawyers, notaries, banks and regulators.</p>
     </div>
     <div class="split-img one"><img src="{IMG["tbilisi"]}" alt="Modern towers in Tbilisi with mountains behind" loading="lazy"></div>
   </div>
@@ -652,6 +657,30 @@ PAGES = [
 
 FAVICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#14213D"/><circle cx="10" cy="16" r="4" fill="#fff"/><circle cx="22" cy="16" r="4" fill="#F28C28"/><rect x="10" y="15" width="12" height="2" fill="#fff"/></svg>'
 
+
+LLMS = f"""# GESA Group
+
+> GESA Group is a US-based brokerage, introduction and advisory company that bridges the United States and the Caucasus (Georgia, Armenia, Azerbaijan): real estate in both directions, commodity trade finance introductions to partner banks, and real estate consulting.
+
+- Website: https://thegesagroup.com/
+- Phone and WhatsApp: +1 (929) 476-2354
+- LinkedIn: https://www.linkedin.com/company/86365036/
+
+## Partner on the ground
+- [K+A Consulting](https://kaconsulting.ge/): investment advisory boutique in Tbilisi; handles execution in the region for GESA Group (local lawyers, notaries, banks, regulators).
+
+## Pages
+- [Real estate](https://thegesagroup.com/real-estate.html): US and Caucasus property, both directions
+- [Trade finance](https://thegesagroup.com/trade-finance.html): introductions of commodity traders to partner banks
+- [Real estate consulting](https://thegesagroup.com/consulting.html)
+- [Why the region](https://thegesagroup.com/why-the-region.html)
+- [Insights](https://thegesagroup.com/insights.html): positive US–Caucasus business news
+- [About](https://thegesagroup.com/about.html)
+- [Submit a deal](https://thegesagroup.com/contact.html)
+
+GESA Group acts as an introducer and advisor; it is not a bank, lender, broker-dealer, investment adviser or real estate brokerage. Information current as of {UPDATED}.
+"""
+
 README = f"""# {BRAND} website (test version)
 
 US to the Caucasus (Georgia, Armenia, Azerbaijan). Static site, English only.
@@ -670,6 +699,8 @@ Hotlinked from Pexels (free licence). Replace with own photos later.
 ## Hosting
 Hosted on Netlify from `main` (no build command, publish directory `.`; see `netlify.toml`). Forms use Netlify Forms (AJAX POST to `/`); notifications go to the address set in Netlify → Forms → Notifications. The GitHub Pages copy shows a test-mode message instead of sending.
 
+**Deploys cost Netlify credits (free plan, 300 a month shared with other sites).** Netlify builds only when the latest commit message contains `[deploy]` (see `ignore` in `netlify.toml`); other pushes wait for the next `[deploy]` commit. Batch changes and publish at most once every 3 days.
+
 ## Before going live
 Remove the `noindex` meta tag from every page, replace robots.txt, add canonical and Open Graph tags and a sitemap once the domain is chosen.
 """
@@ -686,6 +717,7 @@ def build():
     # favicon.svg and assets/gesa-logo.png come from _src/logo.py
     open(os.path.join(OUT, "robots.txt"), "w").write("User-agent: *\nDisallow: /\n")
     open(os.path.join(OUT, "README.md"), "w").write(README)
+    open(os.path.join(OUT, "llms.txt"), "w").write(LLMS)
 
 
 if __name__ == "__main__":

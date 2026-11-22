@@ -1,6 +1,9 @@
 [build]
   publish = "."
   command = ""
+  # Save credits: build only when the latest commit message contains [deploy]
+  # (exit 0 = skip the build, exit 1 = build)
+  ignore = "git log -1 --pretty=%B | grep -qF '[deploy]' && exit 1 || exit 0"
 
 # Keep the generator sources and repo docs off the public site
 [[redirects]]
