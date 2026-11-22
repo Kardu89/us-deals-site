@@ -283,7 +283,7 @@ home = f'''
       <article class="record"><p class="tag">Private client &middot; Debt</p><p class="fig">EUR 15m</p><p>Debt refinancing with UK and EU lenders for a private client.</p></article>
       <article class="record"><p class="tag">Armenia &middot; Trade finance</p><p class="fig">USD 4m</p><p>Bank credit line for a commodity trader operating between Armenia and Dubai.</p></article>
       <article class="record"><p class="tag">Armenia &amp; Azerbaijan</p><p class="fig">Prime assets</p><p>Several prime real estate transactions in Yerevan and Baku.</p></article>
-      <article class="record ph"><p class="tag">United States &middot; Real estate</p><p class="fig">XX</p><p>XX: transaction to be confirmed.</p></article>
+      <article class="record"><p class="tag">United States &middot; Real estate</p><p class="fig">USD 10m GDV</p><p>Portfolio of fix-and-flip projects in Florida over two years: permitted land plots and homes for renovation, taken through construction or refurbishment to sale.</p></article>
     </div>
   </div>
 </section>
@@ -354,7 +354,7 @@ real_estate = page_hero("Real estate", "Property deals across the bridge, <b>in 
     {faq([
       ("Do you act as a real estate broker in the US?", "No. US brokerage requires a state licence. We introduce the parties and manage the process, and licensed brokerage partners handle the regulated part of the transaction."),
       ("Can foreigners buy property in Georgia, Armenia and Azerbaijan?", "Rules differ by country and by type of property, especially for land. We check the rules for each deal with local lawyers before anything is signed."),
-      ("What is a typical deal size?", "XX: to be confirmed."),
+      ("What is a typical deal size?", "USD 1m to 20m for real estate. For commodity traders, bank credit lines from USD 2m."),
       ("Do you bring investors into a project as shareholders?", "Not at this stage. We work on direct purchases, sales and property-level co-investment. Share offerings are outside our current scope."),
     ])}
   </div>
@@ -492,15 +492,6 @@ about = page_hero("About", f"{BRAND} is a bridge <b>built by people from both si
   <div class="wrap">
     <div class="section-head center"><h2>Who sits on <b>the other side of the table</b></h2></div>
     <div class="chips center"><span>Private investors (HNWI, UHNWI)</span><span>Single and multi-family offices</span><span>Partner banks and trade financiers</span><span>Commodity traders</span><span>Developers and property owners</span><span>Lawyers, notaries and tax advisers</span></div>
-  </div>
-</section>
-<section class="section">
-  <div class="wrap">
-    <div class="section-head center"><h2>Our <b>partners</b></h2></div>
-    <div class="team">
-      <div class="person ph"><div class="avatar" aria-hidden="true">XX</div><h3>XX</h3><p class="tag">Partner, United States</p><p>Profile coming soon.</p></div>
-      <div class="person ph"><div class="avatar" aria-hidden="true">XX</div><h3>XX</h3><p class="tag">Partner, Caucasus and Europe</p><p>Profile coming soon.</p></div>
-    </div>
   </div>
 </section>
 {cta_band()}
@@ -691,7 +682,7 @@ US to the Caucasus (Georgia, Armenia, Azerbaijan). Static site, English only.
 - Then run `python3 _src/build.py` and commit everything. The generated HTML files sit in the repo root.
 
 ## Placeholders to replace
-- `XX` - team, US track record, typical deal size, final form questions
+- `XX` - final form questions (team section removed for now)
 
 ## Photos
 Hotlinked from Pexels (free licence). Replace with own photos later.
