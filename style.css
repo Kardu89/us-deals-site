@@ -226,8 +226,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tabs button[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
 .enquiry{border:1px solid var(--line);border-radius:10px;padding:34px;display:grid;gap:18px;box-shadow:0 1px 2px rgba(20,33,61,.04)}
 .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px}
-.fields label{display:grid;gap:6px;font-size:.9rem;font-weight:600;min-width:0}
-.fields label.full{grid-column:1/-1}
+.fields .field{display:grid;gap:6px;min-width:0}
+.fields .field label{font-size:.9rem;font-weight:600}
+.fields .field.full{grid-column:1/-1}
 .fields input,.fields select,.fields textarea{font:400 1rem var(--body);color:var(--ink);background:#fff;border:1px solid #CBD3DF;border-radius:6px;padding:12px 14px;width:100%}
 .fields input:focus,.fields select:focus,.fields textarea:focus{outline:2px solid var(--orange);outline-offset:0;border-color:var(--orange)}
 .consent{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:var(--muted)}
