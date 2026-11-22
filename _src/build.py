@@ -82,7 +82,7 @@ FOOTER = f'''<footer class="site-foot">
     </div>
     <div><h4>Services</h4><a href="real-estate.html">Real estate</a><a href="trade-finance.html">Trade finance</a><a href="consulting.html">Real estate consulting</a></div>
     <div><h4>Company</h4><a href="why-the-region.html">Why the region</a><a href="insights.html">Insights</a><a href="about.html">About</a><a href="contact.html">Submit a deal</a></div>
-    <div><h4>Contact</h4><p class="mono">XX@XX.com</p><p class="mono"><a href="tel:+19294762354">+1 (929) 476-2354</a></p><p class="mono"><a href="https://wa.me/19294762354" target="_blank" rel="noopener">WhatsApp</a></p></div>
+    <div><h4>Contact</h4><p class="mono"><a href="tel:+19294762354">+1 (929) 476-2354</a></p><p class="mono"><a href="https://wa.me/19294762354" target="_blank" rel="noopener">WhatsApp</a></p></div>
   </div>
   <div class="wrap legal">
     <p>{BRAND} acts as an introducer and advisor. It is not a bank, lender, broker-dealer, investment adviser or real estate brokerage, and it does not offer or sell securities. Where a transaction requires a licence, such as US real estate brokerage, we work with appropriately licensed partners. Nothing on this site is an offer of finance or investment, or legal, tax or financial advice. Information current as of {UPDATED}. Photos: Pexels.</p>
@@ -556,9 +556,8 @@ contact = page_hero("Submit a deal", "Tell us what you have, <b>or what you are 
 </section>
 <section class="section alt" id="contact">
   <div class="wrap narrow">
-    <div class="section-head center"><h2>Prefer to <b>write directly?</b></h2></div>
+    <div class="section-head center"><h2>Prefer to <b>call or message?</b></h2></div>
     <dl class="contact-list">
-      <div><dt>Email</dt><dd class="mono">XX@XX.com</dd></div>
       <div><dt>Phone</dt><dd class="mono"><a href="tel:+19294762354">+1 (929) 476-2354</a></dd></div>
       <div><dt>WhatsApp</dt><dd class="mono"><a href="https://wa.me/19294762354" target="_blank" rel="noopener">+1 (929) 476-2354</a></dd></div>
     </dl>
@@ -575,7 +574,7 @@ contact = page_hero("Submit a deal", "Tell us what you have, <b>or what you are 
     f.addEventListener('submit',function(e){{
       if(location.hostname.indexOf('netlify')>-1)return;
       e.preventDefault();
-      f.querySelector('.form-note').textContent='Test version: this form is not connected yet. Please write to XX@XX.com.';
+      f.querySelector('.form-note').textContent='Test version: this form is not connected yet. Please call or message us on WhatsApp: +1 (929) 476-2354.';
     }});
   }});
 }})();
@@ -657,7 +656,7 @@ US to the Caucasus (Georgia, Armenia, Azerbaijan). Static site, English only.
 - Then run `python3 _src/build.py` and commit everything. The generated HTML files sit in the repo root.
 
 ## Placeholders to replace
-- `XX` - email, team, US track record, typical deal size, final form questions
+- `XX` - team, US track record, typical deal size, final form questions
 
 ## Photos
 Hotlinked from Pexels (free licence). Replace with own photos later.
