@@ -283,7 +283,7 @@ home = f'''
       <article class="record"><p class="tag">Private client &middot; Debt</p><p class="fig">EUR 15m</p><p>Debt refinancing with UK and EU lenders for a private client.</p></article>
       <article class="record"><p class="tag">Armenia &middot; Trade finance</p><p class="fig">USD 4m</p><p>Bank credit line for a commodity trader operating between Armenia and Dubai.</p></article>
       <article class="record"><p class="tag">Armenia &amp; Azerbaijan</p><p class="fig">Prime assets</p><p>Several prime real estate transactions in Yerevan and Baku.</p></article>
-      <article class="record"><p class="tag">United States &middot; Real estate</p><p class="fig">USD 10m GDV</p><p>Portfolio of fix-and-flip projects in Florida over two years: permitted land plots and homes for renovation, taken through construction or refurbishment to sale.</p></article>
+      <article class="record"><p class="tag">United States &middot; Real estate</p><p class="fig">USD 10m GDV</p><p>Florida fix-and-flip portfolio over two years: buy land or homes, build or renovate, sell.</p></article>
     </div>
   </div>
 </section>
