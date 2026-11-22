@@ -506,7 +506,7 @@ def form(fid, title, intro, fields):
     rows = []
     for f in fields:
         kind, name, label = f[0], f[1], f[2]
-        req = ' required' if name in ("name", "email") else ''
+        req = ' required' if name in ("name", "email", "phone") else ''
         if kind == "select":
             opts = "".join(f'<option>{o}</option>' for o in f[3])
             rows.append(f'<label for="{fid}-{name}">{label}<select id="{fid}-{name}" name="{name}"{req}><option value="">Select</option>{opts}</select></label>')
@@ -526,7 +526,7 @@ def form(fid, title, intro, fields):
 
 MARKETS = ["United States", "Georgia", "Armenia", "Azerbaijan"]
 ASSETS = ["Residential", "Multifamily", "Hospitality", "Commercial", "Land / development"]
-base = [("text", "name", "Full name"), ("email", "email", "Email"), ("tel", "phone", "Phone / WhatsApp (optional)"), ("text", "company", "Company"), ("select", "country", "Where you are based", MARKETS + ["Other"])]
+base = [("text", "name", "Full name"), ("email", "email", "Email"), ("tel", "phone", "Phone / WhatsApp"), ("text", "company", "Company"), ("select", "country", "Where you are based", MARKETS + ["Other"])]
 forms_html = (
     form("trader", "Trade finance", "For traders looking for financing from partner banks.",
          base + [("text", "commodity", "Commodity traded"),
