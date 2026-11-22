@@ -526,7 +526,7 @@ def form(fid, title, intro, fields):
 
 MARKETS = ["United States", "Georgia", "Armenia", "Azerbaijan"]
 ASSETS = ["Residential", "Multifamily", "Hospitality", "Commercial", "Land / development"]
-base = [("text", "name", "Full name"), ("email", "email", "Email"), ("text", "company", "Company"), ("select", "country", "Where you are based", MARKETS + ["Other"])]
+base = [("text", "name", "Full name"), ("email", "email", "Email"), ("tel", "phone", "Phone / WhatsApp (optional)"), ("text", "company", "Company"), ("select", "country", "Where you are based", MARKETS + ["Other"])]
 forms_html = (
     form("trader", "Trade finance", "For traders looking for financing from partner banks.",
          base + [("text", "commodity", "Commodity traded"),
@@ -572,9 +572,15 @@ contact = page_hero("Submit a deal", "Tell us what you have, <b>or what you are 
   show(['form-trader','form-investor','form-owner'].indexOf('form-'+h)>-1?'form-'+h:'form-trader');
   [].slice.call(document.querySelectorAll('form.enquiry')).forEach(function(f){{
     f.addEventListener('submit',function(e){{
-      if(location.hostname.indexOf('netlify')>-1)return;
       e.preventDefault();
-      f.querySelector('.form-note').textContent='Test version: this form is not connected yet. Please call or message us on WhatsApp: +1 (929) 476-2354.';
+      var note=f.querySelector('.form-note'), btn=f.querySelector('button[type=submit]');
+      if(location.hostname.indexOf('github.io')>-1){{note.textContent='Test version: this form is not connected yet. Please call or message us on WhatsApp: +1 (929) 476-2354.';return;}}
+      btn.disabled=true; note.textContent='Sending…';
+      fetch('/',{{method:'POST',headers:{{'Content-Type':'application/x-www-form-urlencoded'}},body:new URLSearchParams(new FormData(f)).toString()}})
+        .then(function(r){{if(!r.ok)throw new Error(r.status);
+          f.querySelector('.fields').hidden=true; f.querySelector('.consent').hidden=true; btn.hidden=true;
+          note.textContent='Thank you. We have your enquiry and will reply within two working days.';}})
+        .catch(function(){{btn.disabled=false; note.textContent='The form could not be sent. Please try again, or call or message us on WhatsApp: +1 (929) 476-2354.';}});
     }});
   }});
 }})();
@@ -662,7 +668,7 @@ US to the Caucasus (Georgia, Armenia, Azerbaijan). Static site, English only.
 Hotlinked from Pexels (free licence). Replace with own photos later.
 
 ## Hosting
-GitHub Pages from `main` / root. For Netlify: no build command, publish directory `.`; forms already carry `data-netlify="true"`.
+Hosted on Netlify from `main` (no build command, publish directory `.`; see `netlify.toml`). Forms use Netlify Forms (AJAX POST to `/`); notifications go to the address set in Netlify → Forms → Notifications. The GitHub Pages copy shows a test-mode message instead of sending.
 
 ## Before going live
 Remove the `noindex` meta tag from every page, replace robots.txt, add canonical and Open Graph tags and a sitemap once the domain is chosen.

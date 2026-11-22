@@ -14,7 +14,7 @@ US to the Caucasus (Georgia, Armenia, Azerbaijan). Static site, English only.
 Hotlinked from Pexels (free licence). Replace with own photos later.
 
 ## Hosting
-GitHub Pages from `main` / root. For Netlify: no build command, publish directory `.`; forms already carry `data-netlify="true"`.
+Hosted on Netlify from `main` (no build command, publish directory `.`; see `netlify.toml`). Forms use Netlify Forms (AJAX POST to `/`); notifications go to the address set in Netlify → Forms → Notifications. The GitHub Pages copy shows a test-mode message instead of sending.
 
 ## Before going live
 Remove the `noindex` meta tag from every page, replace robots.txt, add canonical and Open Graph tags and a sitemap once the domain is chosen.
