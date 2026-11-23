@@ -1,0 +1,36 @@
+{
+  "slug": "tripp-implementation-begins",
+  "date": "2026-11-23",
+  "status": "published",
+  "countries": ["United States", "Armenia", "Azerbaijan"],
+  "title": "TRIPP moves from paper <b>to implementation</b>",
+  "dek": "Armenia has ratified its framework agreement with the US on the TRIPP route, and the two leaders marked the official start of implementation on 23 November 2026.",
+  "figs": [["74%", "planned US stake in the TRIPP Development Company"], ["49 years", "initial term to build and operate the route"], ["~42 km", "rail and road link through southern Armenia"]],
+  "sections": [
+    {"h": "What happened", "p": [
+      "On 23 November 2026, Armenian Prime Minister Nikol Pashinyan and US President Donald Trump marked the official launch of the TRIPP project, the Trump Route for International Peace and Prosperity, in video addresses. Pashinyan had announced the date two days earlier, saying implementation would officially begin on Monday.",
+      "This is a new step in a story we covered on 3 November, when US officials and more than 40 companies discussed investment in the route in New York. Since then the legal base has been completed on the Armenian side: parliament ratified the Armenia&ndash;US framework agreement on 28 October by 63 votes to 32, and President Vahagn Khachaturyan has signed the ratification law."
+    ]},
+    {"h": "How the project is built", "p": [
+      "The route is a transport connection of about 42 kilometres across southern Armenia, linking mainland Azerbaijan with its Nakhchivan exclave, with railway, road and other communication links.",
+      "A TRIPP Development Company will build and operate it. Under the guidelines approved by the Armenian government, the United States is to hold 74% and Armenia 26%, with an initial 49-year term. Armenia keeps its own jurisdiction on its territory."
+    ]},
+    {"h": "Money and next steps", "p": [
+      "Separately, the US has set up an enterprise fund of about USD 200 million to back Middle Corridor projects, TRIPP included. Before construction, the two governments still need a shareholders&rsquo; agreement and a charter for the development company."
+    ]}
+  ],
+  "why": [
+    "With a US-majority company in charge, rail, road, power and digital contracts on the route are likely to be tendered to US firms and their regional partners.",
+    "A new direct link between Azerbaijan, Armenia and onward to T&uuml;rkiye adds capacity to the Middle Corridor for traders moving goods between Asia and Europe.",
+    "A 49-year operating term gives investors and lenders a long horizon for logistics, warehousing and industrial real estate along the corridor."
+  ],
+  "risk": "The launch is a formal start: no construction contracts or capital budget have been published, and the shareholders&rsquo; agreement and company charter are still to be signed.",
+  "sources": [
+    {"title": "Armenian PM and Trump launch TRIPP project", "outlet": "APA", "date": "23 November 2026", "url": "https://en.apa.az/america/armenian-pm-and-trump-launch-tripp-project-537924"},
+    {"title": "Armenian PM: Implementation of TRIPP project to begin on November 23", "outlet": "APA", "date": "21 November 2026", "url": "https://en.apa.az/cis-countries/armenian-pm-implementation-of-tripp-project-to-begin-on-november-23-updated-537644"},
+    {"title": "Armenian president signs laws ratifying TRIPP framework agreement", "outlet": "Armenpress", "date": "November 2026", "url": "https://armenpress.am/en/article/1265451"},
+    {"title": "TRIPP takes step toward implementation", "outlet": "Eurasianet", "date": "16 July 2026", "url": "https://eurasianet.org/tripp-takes-step-toward-implementation"}
+  ],
+  "linkedin": "74% US ownership, 49 years: the TRIPP route through southern Armenia is officially in implementation.\n\nOn 23 November, the leaders of Armenia and the United States marked the start of the TRIPP project. Armenia's parliament ratified the framework agreement with the US on 28 October. A TRIPP Development Company, 74% US and 26% Armenian, is to build and operate a rail and road link of about 42 km for an initial 49 years. Shareholder documents and tenders are still ahead.\n\nWhat it means: a US-led infrastructure company is now anchored in the South Caucasus, opening contracts for builders, lenders and logistics investors on the Middle Corridor. That is the US to Caucasus link GESA Group works on.\n\nSource: APA, 23 November 2026; Armenpress; Eurasianet\n\n#Armenia #USA #TRIPP #MiddleCorridor #Infrastructure",
+  "linkedin_status": "awaiting approval"
+}
