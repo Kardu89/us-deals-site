@@ -1,0 +1,36 @@
+{
+  "slug": "tripp-shareholders-agreement",
+  "date": "2026-11-26",
+  "status": "draft",
+  "countries": ["United States", "Armenia"],
+  "title": "TRIPP gets its rulebook: <b>DFC to hold the 74% US stake</b>",
+  "dek": "Armenia&rsquo;s government has approved the shareholders&rsquo; agreement for the TRIPP Development Company, with the US side represented by a Delaware company wholly owned by the US International Development Finance Corporation.",
+  "figs": [["74%", "US stake, held through a DFC-owned company"], ["3 of 5", "board seats appointed by the US side"], ["16", "groups of decisions that need both sides&rsquo; consent"]],
+  "sections": [
+    {"h": "What happened", "p": [
+      "At its meeting on 26 November 2026, the Armenian cabinet approved the shareholders&rsquo; agreement for TRIPP Development Company, the closed joint-stock company that is to build and operate the TRIPP route through southern Armenia. The Minister of Territorial Administration and Infrastructure is authorised to sign it on behalf of the government with TDC US Inc.",
+      "This is a new step in a story we covered on 23 November, when the official start of TRIPP implementation was marked. In that note we flagged the shareholders&rsquo; agreement as one of the documents still missing; it has now cleared the Armenian government."
+    ]},
+    {"h": "Who owns and runs the company", "p": [
+      "The company is set up under Armenian law. The American side holds 74% and Armenia 26%. The US stake sits with TDC US Inc., a company incorporated in Delaware and wholly owned by the US International Development Finance Corporation (DFC), the US government&rsquo;s development finance agency.",
+      "The board has five members: three appointed by the US side and two by Armenia. Sixteen groups of so-called reserved matters cannot be decided without both shareholders, among them the ownership structure, third-party participation, the choice of investors and concession terms, key financial decisions, the executive body and procurement policy. The Armenian government remains the only party that grants concession rights."
+    ]},
+    {"h": "Engineering work is moving too", "p": [
+      "In the same week, AECOM, the Dallas-based infrastructure engineering firm, visited Armenia to present preliminary findings of its railway engineering study for TRIPP to senior officials and to discuss further infrastructure investment, according to the US Embassy in Yerevan. The embassy said the study is nearing completion."
+    ]}
+  ],
+  "why": [
+    "With a DFC-owned company as majority shareholder, TRIPP is anchored in a US government finance agency, which can make it easier to bring in US lenders, insurers and co-investors.",
+    "Investor selection, concessions and procurement are reserved matters, so the rules for who builds and finances the route will be set jointly and are worth watching for contractors and suppliers.",
+    "A completed railway study by a US engineering firm is the usual precondition for tenders, giving logistics, warehousing and industrial real estate investors a clearer timeline along the Middle Corridor."
+  ],
+  "risk": "The agreement has been approved but not yet reported as signed, and no capital budget, construction tender or timetable for the route has been published.",
+  "sources": [
+    {"title": "Armenian government approves TRIPP Development Company shareholders&rsquo; agreement", "outlet": "APA", "date": "26 November 2026", "url": "https://en.apa.az/cis-countries/armenian-government-approves-tripp-development-company-shareholders-agreement-538668"},
+    {"title": "Armenia approves TRIPP Development Company shareholders&rsquo; agreement", "outlet": "Azernews", "date": "26 November 2026", "url": "https://www.azernews.az/karabakh/268140.html"},
+    {"title": "US company presents preliminary findings of TRIPP study to Armenia", "outlet": "APA", "date": "19 November 2026", "url": "https://en.apa.az/cis-countries/aecom-representatives-present-preliminary-findings-of-tripp-project-study-in-armenia-537242"},
+    {"title": "AECOM discusses preliminary railway study findings, investment opportunities under TRIPP", "outlet": "Armenpress", "date": "November 2026", "url": "https://armenpress.am/en/article/1266135"}
+  ],
+  "linkedin": "74% US, held through the DFC: Armenia's government has approved the shareholders' agreement for the TRIPP Development Company.\n\nOn 26 November, the cabinet authorised its infrastructure minister to sign with TDC US Inc., a Delaware company wholly owned by the US International Development Finance Corporation. The US side will appoint 3 of 5 board members, and 16 groups of key decisions, including investor selection and procurement policy, need both sides' consent. The same week, Dallas-based AECOM presented preliminary findings of its TRIPP railway engineering study.\n\nWhat it means: the route now has a US government finance agency as majority shareholder and a US engineering firm on the railway design. That opens a door for American contractors, lenders and logistics investors in the South Caucasus, the US to Caucasus bridge GESA Group works on.\n\nSource: APA and Azernews, 26 November 2026; APA, 19 November 2026\n\n#Armenia #USA #TRIPP #MiddleCorridor #Infrastructure",
+  "linkedin_status": "awaiting approval"
+}
